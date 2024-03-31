@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body> 
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const root = document.getElementById("root");
+        //jsx
+        function Title() {
+            return (
+                <h3 id="title" onMouseEnter={() => console.log('mouse enter')}>
+                    Hello Im a Span
+                </h3>
+            );
+        } 
+        
+        // () => 는 위의 function 과 같다
+        const Button = () => React.createElement(
+            "button",
+            {
+                onClick: ()=> console.log("im clicked"),
+            },
+            "CLICK"
+        );
+        
+        //const container = React.createElement("div", null, [h3, btn]);
+        
+        const Container = () => (
+            <div>
+                <button>컴포넌트(함수)는 대문자로 써야함, 이렇게 소문자로 작성하면 그냥 html 태그로 인식됨 </button>
+                <Title />
+                <Button />
+            </div>
+        );
+        ReactDOM.render(<Container />, root);
+        
+    </script>
+</html>
