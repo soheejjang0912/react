@@ -8,32 +8,55 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel"> 
         function App() {  
-            const [minutes, setMinutes] = React.useState();
+            const [amount, setAmount] = React.useState(0);
+            const [flipped, setFlipped] = React.useState(false);
             //useState는 arrray 를 제공. 
             //첫 번째 element = 현재 값
             //두 번째 element = 첫 번째 element 를 수정해주는 modifier 함수가 들어감
-            //React.useState() || React.useState(0) || React.useState("") : 초기화
+            //React.useState() || React.useState(0) || React.useState("") : 첫 번째 element 초기화 값
             
             //jsx는 class → className
             //for → htmlFor
             const onChange = (event) => {
                 //console.log(event.target.value);
-                setMinutes(event.target.value);
+                setAmount(event.target.value);
+            }
+            const reset = () => setAmount(0);
+            const onFlip = () => {
+                reset();
+                setFlipped((current) => !current);
             }
             return (
                 <div> 
                     <h1 className="hi">Super Converter</h1>
-                    <lable htmlFor="minutes">Minutes</lable>
-                    <input 
-                        value={minutes} 
-                        id="minutes" 
-                        placeholder="Minutes" 
-                        type="number" 
-                        onChange={onChange}
-                    />
-                    <h4>you want to convert {minutes}</h4>
-                    <lable htmlFor="hours">Minutes</lable>
-                    <input id="hours" placeholder="Hours" type="number" />
+                    <div>
+                        <lable htmlFor="minutes">Minutes</lable>
+                        <input 
+                            value={flipped ? amount * 60 : amount} 
+                            id="minutes" 
+                            placeholder="Minutes" 
+                            type="number" 
+                            onChange={onChange}
+                            disabled={flipped}//disabled={flipped === true}
+                        />
+                        <h4>you want to convert {amount}</h4>
+                    </div>
+                    <div>
+                        <lable htmlFor="hours">Hour</lable>
+                        <input 
+                            value={flipped ? amount : amount / 60}
+                            // flipped 이면 그냥 값, 아니면 변환된 값 
+                            id="hours" 
+                            placeholder="Hours" 
+                            type="number"
+                            onChange={onChange}
+                            disabled={!flipped}//disabled={flipped === false}
+                        />
+                    </div>
+
+                    <button onClick={reset}>reset</button>
+
+                    <button onClick={onFlip}>flip</button>
                 </div> 
             );
         } 
