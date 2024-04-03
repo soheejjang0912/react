@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body> 
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel"> 
+    ///function Btn(props){
+    function Btn({ banana, onClick }){ 
+      //  console.log(props);
+        return(
+            <button
+                onClick={onClick}
+                style={{
+                    backgroundColor: "tomato",
+                    color: "white"
+                }}
+            >
+                {banana} 
+            </button>
+        );
+    }
+
+    function App() {   
+        const [value, setValue] = React.useState("Svae");
+        const changeValue = () => setValue("Revert");
+        return (
+            <div>  
+                <Btn banana={value} onClick={changeValue}/>
+                
+                <Btn banana="save" onClick={"여기에써도 온클릭 적용 안됨 prop으로 보내야함"}/>
+                <Btn banana="continue" />
+            </div> 
+        );
+    } 
+    const root = document.getElementById("root");
+
+    ReactDOM.render(<App />, root)
+    </script>
+</html>
