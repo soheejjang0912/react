@@ -9,7 +9,7 @@
     <script type="text/babel"> 
     ///function Btn(props){
     function Btn({ banana, onClick }){ 
-      //  console.log(props);
+       console.log(banana); //이렇게 하면 필요없는 continue도 다시 그려짐.. 이를 방지하기 위하여 memo 사용
         return(
             <button
                 onClick={onClick}
@@ -23,15 +23,22 @@
         );
     }
 
+    const MemorizedBtn = React.memo(Btn);
     function App() {   
         const [value, setValue] = React.useState("Svae");
         const changeValue = () => setValue("Revert");
         return (
+            ////이렇게 하면 필요없는 continue도 다시 그려짐.. 이를 방지하기 위하여 memo 사용
+            /*<div>  
+                <Btn banana="save" onClick={"여기에써도 온클릭 적용 안됨 prop으로 보내야함"}/>
+                <Btn banana="continue" />
+            </div> */
+
             <div>  
                 <Btn banana={value} onClick={changeValue}/>
                 
-                <Btn banana="save" onClick={"여기에써도 온클릭 적용 안됨 prop으로 보내야함"}/>
-                <Btn banana="continue" />
+                <MemorizedBtn banana="save" onClick={"여기에써도 온클릭 적용 안됨 prop으로 보내야함"}/>
+                <MemorizedBtn banana="continue" />
             </div> 
         );
     } 
